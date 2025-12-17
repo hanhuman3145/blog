@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>너의 이름은. - 현실과 영화의 교차점</title>
+    
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #2a3a50;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+        }
+        header p {
+            margin-top: 5px;
+            font-size: 1.1em;
+            color: #ccc;
+        }
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 30px auto;
+            overflow: hidden;
+            padding: 0 10px;
+        }
+        /* 장소 섹션 스타일 */
+        .location-section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* 초기 투명하게 설정 */
+            transform: translateY(30px); /* 초기 아래로 이동 설정 */
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* 애니메이션 설정 */
+        }
+        .location-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .location-section h2 {
+            color: #d9534f;
+            border-bottom: 4px solid #d9534f;
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 2em;
+            display: inline-block;
+        }
+        .location-content {
+            display: flex;
+            flex-wrap: wrap; /* 반응형을 위해 줄바꿈 허용 */
+            gap: 40px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .location-image-wrapper {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+        }
+        .location-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            object-fit: cover;
+        }
+        .location-details {
+            flex: 2;
+            min-width: 300px;
+        }
+        .details-box {
+            background: #e9f7ef;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 6px solid #5cb85c;
+        }
+        .details-box h3 {
+            color: #2a3a50;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        .social-meaning {
+            background: #fdf3f3;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #d9534f;
+        }
+        .social-meaning h3 {
+            color: #d9534f;
+            font-size: 1.4em;
+            margin-top: 0;
+        }
+        .social-meaning ul {
+            list-style-type: '👉 ';
+            padding-left: 20px;
+        }
+        .social-meaning li {
+            margin-bottom: 10px;
+        }
+        
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            .location-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .location-image-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>너의 이름은. - 현실과 영화의 교차점</h1>
+        <p>Your Name. - 장소, 의미, 그리고 사회적 메시지</p>
+    </header>
+
+    <div class="container">
+        <section id="suga-shrine" class="location-section">
+            <h2>1. 스가 신사 (須賀神社)</h2>
+            <div class="location-content">
+                <div class="location-image-wrapper">
+                    <img src="스가신사.jfif" alt="스가 신사 계단 이미지 (영화 속 장면)" class="location-image">
+                </div>
+                <div class="location-details">
+                    <div class="details-box">
+                        <h3>📍 실제 위치 및 영화 속 특징</h3>
+                        <p><strong>실제 위치:</strong> 도쿄 신주쿠구 요츠야</p>
+                        <p><strong>간단 설명:</strong> 실존하는 일본의 전통 신사이며, 애니메이션의 상징적인 배경으로 쓰였습니다.</p>
+                        <p><strong>영화 속 장면:</strong> 타키와 미츠하가 서로 스쳐 지나가다 **"너의 이름은..?"** 하고 멈추는 **운명의 교차점** 장면의 배경입니다.</p>
+                        <p><strong>특징:</strong> 가파른 돌계단, 양옆으로 주택가, 위에서 내려다보는 도쿄 전경이 영화 장면과 거의 일치하여 **성지 순례지**로 유명합니다.</p>
+                    </div>
+                    <div class="social-meaning">
+                        <h3>✨ 영화 속 사회적인 의미: "인연, 시간, 기억, 운명의 교차점"</h3>
+                        <ul>
+                            <li>일본 신토에서 신사는 **인간과 인연, 시간을 잇는 장소**로 사용되며, 타키와 미츠하의 재회라는 주제와 직결됩니다.</li>
+                            <li>재난 이후의 기억 상실 등으로 끊어진 관계를 **다시 잇는 사회적 상징의 공간**입니다.</li>
+                            <li>(추가) 여성만이 신사를 계승하는 전통을 통해 **여성의 기억과 몸을 통해 역사가 이어진다는 은유**로 해석될 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="suwa-lake" class="location-section">
+            <h2>2. 스와호 (諏訪湖)</h2>
+            <div class="location-content">
+                <div class="location-image-wrapper">
+                    <img src="스와호.jfif" alt="스와호 이미지 (영화 포스터 장면)" class="location-image">
+                </div>
+                <div class="location-details">
+                    <div class="details-box">
+                        <h3>📍 실제 위치 및 영화 속 특징</h3>
+                        <p><strong>실제 위치:</strong> 일본 나가노현</p>
+                        <p><strong>간단 설명:</strong> 영화 속 **이토모리 호수**의 모티브가 된 곳으로, 호수 자체가 운석 충돌로 생긴 크레이터라는 설정입니다.</p>
+                        <p><strong>영화 속 장면:</strong> 도입부 미츠하 마을 전경, 몸이 바뀐 타키가 호수를 바라보는 장면, **운석 낙하 장면** 등 주요 사건의 배경으로 쓰입니다.</p>
+                        <p><strong>특징:</strong> 운석 충돌로 형성된 크레이터 호수를 묘사하여 **실제 일본의 재난들(지진, 쓰나미 등)**을 모티브로 한 듯한 분위기를 전달합니다.</p>
+                    </div>
+                    <div class="social-meaning">
+                        <h3>✨ 영화 속 사회적인 의미: "재난의 현실성과 망각의 양면성"</h3>
+                        <ul>
+                            <li>관객의 현실 경험과 영화 세계를 연결하여, **"이 이야기는 허구 이지만, 재난은 현실이다"**라는 강력한 메시지를 전달합니다.</li>
+                            <li>인연을 잇는 신사와 대비되는 **망각의 공간**입니다.</li>
+                            <li>아름답고 평온하게 묘사되는 모습과 이미 사라진 마을 사람들의 흔적을 대비시키며 **기억의 양면성**을 이룹니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="shinjuku-station" class="location-section">
+            <h2>3. 신주쿠역 (新宿駅)</h2>
+            <div class="location-content">
+                <div class="location-image-wrapper">
+                    <img src="신주쿠역.jfif" alt="신주쿠역 이미지 (도시 전경)" class="location-image">
+                </div>
+                <div class="location-details">
+                    <div class="details-box">
+                        <h3>📍 실제 위치 및 영화 속 특징</h3>
+                        <p><strong>실제 위치:</strong> 도쿄의 번화한 신주쿠 3-38-1번지 일대</p>
+                        <p><strong>간단 설명:</strong> **일본에서 이용객 수가 가장 많은 역**입니다. 타키가 도쿄 생활, 학교, 아르바이트를 오가는 장면에서 **도시 생활의 중심지**로 자주 등장합니다.</p>
+                        <p><strong>특징:</strong> 복잡한 통로, 에스컬레이터 등이 디테일하게 묘사되어 타키의 이동 속도와 혼잡한 공간 대비로 **도시의 압도감과 속도감**을 전달합니다.</p>
+                    </div>
+                    <div class="social-meaning">
+                        <h3>✨ 영화 속 사회적인 의미: "현대 도시의 속도감과 단절된 개인"</h3>
+                        <ul>
+                            <li>현대 일본 사회에서 개인이 느끼는 **시간 압박과 선택의 부담**을 상징합니다.</li>
+                            <li>수많은 사람들이 공존하지만 서로를 잘 알지 못하는 **익명성(단절된 개인)**의 모습을 보여줍니다.</li>
+                            <li>시골(미츠하)과 대도시(타키)의 대비를 극대화하며 **현대 도시인의 고독감**을 은유적으로 표현합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 모든 섹션 요소들을 가져옵니다.
+            const sections = document.querySelectorAll('.location-section');
+
+            // Intersection Observer를 설정합니다.
+            const observerOptions = {
+                root: null, 
+                rootMargin: '0px',
+                threshold: 0.15 // 섹션의 15%가 보이면 콜백 함수 실행
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // 섹션이 뷰포트 내에 들어왔을 때
+                    if (entry.isIntersecting) {
+                        // 'visible' 클래스를 추가하여 CSS 애니메이션(opacity, transform) 발동
+                        entry.target.classList.add('visible');
+                        // 한 번 나타난 섹션은 관찰 중지
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // 각 섹션을 Observer에 등록합니다.
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
