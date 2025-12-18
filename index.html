@@ -6,9 +6,25 @@
     <title>체인소맨 레제편: 문화와 사회 분석</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 세련된 폰트 추가: Noto Sans KR과 Cinzel */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Cinzel:wght@400;700&display=swap');
         
+        :root {
+            --primary-color: #e11d48; /* Rose 600 */
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-main: #e5e5e5;
+            --text-muted: #a1a1aa;
+        }
+
+        /* Denji (Light) Theme */
+        body.denji-theme {
+            --primary-color: #ea580c; /* Orange 600 */
+            --bg-color: #fff7ed;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #1c1917;
+            --text-muted: #44403c;
+        }
+
         html, body {
             margin: 0;
             padding: 0;
@@ -17,24 +33,48 @@
             scroll-behavior: smooth;
         }
 
-        /* 스크롤바 커스텀 */
         ::-webkit-scrollbar {
             width: 8px;
         }
-
         ::-webkit-scrollbar-track {
-            background: #0a0a0a;
+            background: var(--bg-color);
         }
-
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #e11d48, #9f1239);
+            background: var(--primary-color);
             border-radius: 10px;
         }
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #0a0a0a;
-            color: #e5e5e5;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Mouse Follower */
+        .cursor-trail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .chain-link {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.6;
         }
 
         nav {
@@ -43,30 +83,31 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
+        body.denji-theme nav {
+            background: rgba(255, 247, 237, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
 
-        /* 홈 화면 배경: 이전의 레제 이미지로 복구 */
         .hero-section {
             position: relative;
             width: 100%;
             height: 100vh;
             min-height: 600px;
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(10,10,10,1)),
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--bg-color)),
                               url('https://i.namu.wiki/i/23D68UmS3wuxbF_IyfRTsLngTTvR_08MLe5AM2pkTBYkz8FJbgNIp9UPU0lF4MNLOHRhypYP9_pm8x3kV-r9BA.webp');
             background-size: cover;
             background-position: center 15%; 
-            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10;
         }
 
         .sub-analysis-text {
             font-family: 'Cinzel', 'Noto Sans KR', serif; 
             letter-spacing: 0.15em;
-            text-shadow: 0 0 15px rgba(225, 29, 72, 0.4);
-            border: 1px solid rgba(225, 29, 72, 0.4);
+            text-shadow: 0 0 15px var(--primary-color);
+            border: 1px solid var(--primary-color);
             background: rgba(0, 0, 0, 0.5);
         }
 
@@ -84,20 +125,73 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--card-bg);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 1.5rem;
+            transition: background 0.5s ease;
+        }
+        body.denji-theme .glass-card {
+            border: 1px solid rgba(234, 88, 12, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
         .accent-border {
-            border-left: 5px solid #e11d48;
+            border-left: 5px solid var(--primary-color);
         }
 
-        /* 텍스트 기울기 수정 (정상 상태) */
-        .section-title {
-            font-style: normal;
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: #000;
         }
+
+        #music-player {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        body.denji-theme #music-player {
+            background: rgba(255, 255, 255, 0.8);
+            color: #1c1917;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .music-visualizer {
+            display: flex;
+            gap: 3px;
+            height: 15px;
+            align-items: flex-end;
+        }
+        .bar {
+            width: 3px;
+            background: var(--primary-color);
+            border-radius: 1px;
+        }
+        .playing .bar { animation: bounce 1s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { height: 5px; } 50% { height: 15px; } }
 
         .scene-image {
             width: 100%;
@@ -107,55 +201,99 @@
             filter: brightness(0.7);
             transition: all 0.5s ease;
         }
+        .scene-image:hover { filter: brightness(1); transform: scale(1.02); }
 
-        .scene-image:hover {
-            filter: brightness(1);
-            transform: scale(1.02);
-        }
+        .nav-link { cursor: pointer; transition: all 0.3s; color: var(--text-muted); }
+        .nav-link:hover { color: var(--primary-color); }
+        .nav-link.active-menu { color: var(--primary-color) !important; border-bottom: 2px solid var(--primary-color); }
 
-        .nav-link {
-            cursor: pointer;
-            transition: all 0.3s;
-            color: #a1a1aa;
-        }
-        .nav-link:hover {
-            color: #fb7185;
-        }
-
-        /* 비디오 컨테이너: HTML5 비디오용 스타일 */
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            border-radius: 1rem;
+        .char-card {
             overflow: hidden;
-            background: #000;
+            transition: transform 0.4s ease, border-color 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-        
-        video {
+        .char-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+        .char-img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid rgba(225, 29, 72, 0.2); }
+
+        /* Theme Toggle Switch */
+        .theme-switch {
+            position: relative;
+            width: 120px;
+            height: 40px;
+            background: #222;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            border: 2px solid var(--primary-color);
+        }
+        .switch-handle {
+            position: absolute;
+            left: 5px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        body.denji-theme .switch-handle { transform: translateX(80px); }
+        .theme-label {
             width: 100%;
-            display: block;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+            pointer-events: none;
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
+    <!-- Cursor Elements -->
+    <div id="cursor" class="cursor-trail"></div>
+
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 px-8 py-5 flex justify-between items-center">
-        <div class="flex space-x-10">
-            <span onclick="showSection('intent')" class="nav-link font-bold">제작의도</span>
-            <span onclick="showSection('analysis')" class="nav-link font-bold">심층분석</span>
-            <span onclick="showSection('scenes')" class="nav-link font-bold">주요장면</span>
+        <div id="nav-menu" class="flex items-center space-x-10">
+            <span onclick="showSection('intent', this)" class="nav-link font-bold">제작의도</span>
+            <span onclick="showSection('analysis', this)" class="nav-link font-bold">심층분석</span>
+            <span onclick="showSection('scenes', this)" class="nav-link font-bold">주요장면</span>
+            <span onclick="showSection('characters', this)" class="nav-link font-bold">등장인물</span>
         </div>
-        <div onclick="showHome()" class="cursor-pointer text-2xl font-black tracking-tighter text-white">
-            <span class="text-rose-600">CHAINSAW</span> MAN
+        
+        <div class="flex items-center space-x-8">
+            <!-- Theme Toggle -->
+            <div class="theme-switch" onclick="toggleTheme()">
+                <div class="theme-label">
+                    <span>REZE</span>
+                    <span>DENJI</span>
+                </div>
+                <div class="switch-handle">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div onclick="showHome()" class="cursor-pointer text-2xl font-black tracking-tighter text-inherit">
+                <span class="text-rose-600" id="logo-main">CHAINSAW</span> MAN
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header id="home" class="hero-section">
         <div class="text-center px-4">
-            <h1 class="text-6xl md:text-9xl font-black mb-4 text-white tracking-tighter drop-shadow-2xl">
-                체인소맨 <span class="text-rose-600">레제편</span>
+            <h1 class="text-6xl md:text-9xl font-black mb-4 tracking-tighter drop-shadow-2xl">
+                체인소맨 <span class="text-rose-600" id="hero-accent">레제편</span>
             </h1>
             <p class="text-xl md:text-2xl font-medium text-rose-400 mb-8 tracking-widest opacity-80">
                 チェンソーマン レゼ篇
@@ -166,15 +304,51 @@
         </div>
     </header>
 
+    <!-- 메인 홈 화면 전용 비디오 섹션 -->
+    <div id="home-video-section" class="max-w-4xl mx-auto px-6 -mt-20 relative z-20 pb-20">
+        <div class="glass-card p-4 md:p-6 border border-rose-900/30">
+            <div class="video-wrapper">
+                <video controls preload="metadata">
+                    <source src="videoplayback.mp4" type="video/mp4">
+                </video>
+            </div>
+            <p class="mt-4 text-sm text-gray-500 italic text-center">작품의 시각적 연출과 분위기를 확인할 수 있는 자료 영상입니다.</p>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div id="music-player">
+        <audio id="bgm" loop>
+            <source src="bgm.mp3" type="audio/mpeg">
+        </audio>
+        <div class="play-btn" onclick="toggleMusic()">
+            <svg id="play-icon" class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.333-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path>
+            </svg>
+            <svg id="pause-icon" class="hidden w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+        </div>
+        <div class="music-info font-bold">BGM</div>
+        <div id="visualizer" class="music-visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
     <main class="max-w-6xl mx-auto px-6 pt-16 pb-24">
         <!-- Section: Intent -->
         <section id="intent" class="content-section mb-40">
             <div class="accent-border pl-8 mb-10">
-                <h2 class="section-title text-4xl font-black text-white">사이트 목적</h2>
+                <h2 class="section-title text-4xl font-black uppercase">사이트 제작 의도</h2>
             </div>
             <div class="glass-card p-12">
-                <p class="text-xl leading-relaxed text-gray-300 font-light">
-                    체인소맨 레제편에 대한 사회적 분석을 통해 작품 속에 녹아있는 시대상과 도시 문화를 더 깊이있게 이해하기 위해 이 사이트를 제작했습니다.
+                <p class="text-xl leading-relaxed font-light mb-6">
+                    체인소맨 <span class="text-rose-500 font-bold">레제편</span>은 단순한 액션 만화를 넘어 1990년대 후반의 시대적 정서와 도시 지리적 특성을 세밀하게 담아내고 있습니다.
+                </p>
+                <p class="text-xl leading-relaxed font-light">
+                    본 사이트는 작품 속 특정 장면들을 사회적, 역사적, 지리적 관점에서 분석함으로써 독자들이 작품의 깊이 있는 세계관을 다각도로 이해할 수 있도록 돕기 위해 제작되었습니다.
                 </p>
             </div>
         </section>
@@ -182,88 +356,105 @@
         <!-- Section: Analysis -->
         <section id="analysis" class="content-section mb-40">
             <div class="accent-border pl-8 mb-12">
-                <h2 class="section-title text-4xl font-black text-white uppercase tracking-tight">분석</h2>
+                <h2 class="section-title text-4xl font-black uppercase tracking-tight">심층 분석</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
-                <div class="glass-card p-10 hover:bg-white/5 transition-colors">
-                    <h3 class="text-2xl font-bold mb-6 text-rose-500">1997년의 아날로그</h3>
-                    <p class="text-lg text-gray-400 font-light leading-relaxed">디지털 통신이 보편화되기 전, 무전기와 라디오 등 아날로그 기기에 의존하던 시대적 한계가 공포와 긴장감을 극대화합니다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="glass-card p-10">
+                    <h3 class="text-2xl font-bold mb-6 text-rose-500">시대적 고립의 미학</h3>
+                    <p class="text-lg font-light leading-relaxed opacity-80">스마트폰이 없던 시절, 물리적인 거리와 통신의 단절이 만들어내는 긴장감은 현대물에서 느끼기 어려운 독특한 서스펜스를 제공합니다.</p>
                 </div>
-                <div class="glass-card p-10 hover:bg-white/5 transition-colors">
-                    <h3 class="text-2xl font-bold mb-6 text-rose-500">포스트 냉전의 잔재</h3>
-                    <p class="text-lg text-gray-400 font-light leading-relaxed">구소련 붕괴 이후의 불안정한 국제 정세와 그 과정에서 탄생한 '모르모트'라는 설정이 서사를 뒷받침합니다.</p>
+                <div class="glass-card p-10">
+                    <h3 class="text-2xl font-bold mb-6 text-rose-500">지정학적 서사</h3>
+                    <p class="text-lg font-light leading-relaxed opacity-80">냉전 종식 직후의 혼란스러운 국제 정세를 캐릭터의 배경 설정으로 활용하여, 개인의 비극이 거대한 역사의 흐름과 맞닿아 있음을 시사합니다.</p>
                 </div>
-            </div>
-
-            <!-- Video Section (Local File) -->
-            <div class="glass-card p-6 md:p-10 border border-rose-900/30">
-                <h3 class="text-xl font-bold mb-6 text-rose-400 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    관련 영상 자료
-                </h3>
-                <div class="video-wrapper">
-                    <!-- 깃허브 업로드 시 동일 경로에 videoplayback.mp4 파일이 있어야 합니다 -->
-                    <video controls preload="metadata">
-                        <source src="videoplayback.mp4" type="video/mp4">
-                        브라우저가 비디오 태그를 지원하지 않습니다.
-                    </video>
-                </div>
-                <p class="mt-4 text-sm text-gray-500 italic text-center">체인소맨 레제편의 분위기와 시각적 연출을 볼 수 있는 업로드 영상입니다.</p>
             </div>
         </section>
 
         <!-- Section: Scenes -->
         <section id="scenes" class="content-section mb-40">
             <div class="accent-border pl-8 mb-12">
-                <h2 class="section-title text-4xl font-black text-white uppercase tracking-tight">Key Scenes</h2>
+                <h2 class="section-title text-4xl font-black uppercase tracking-tight">주요 장면 분석</h2>
             </div>
             
-            <div class="space-y-24">
+            <div class="space-y-32">
                 <!-- 장면 1 -->
                 <div class="flex flex-col lg:flex-row gap-12 items-center">
                     <div class="w-full lg:w-1/2">
-                        <div class="relative overflow-hidden rounded-2xl border border-white/10">
-                            <img src="https://images.unsplash.com/photo-1550106197-2a818320b925?q=80&w=800&auto=format&fit=crop" class="scene-image" alt="아날로그 라디오">
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1593115057323-22168393527a?q=80&w=800&auto=format&fit=crop" class="scene-image" alt="아키의 라디오">
                     </div>
                     <div class="w-full lg:w-1/2">
-                        <h3 class="text-2xl font-bold mb-4 text-white">1. 통신의 한계와 시대적 고립</h3>
-                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-4">
-                            레제의 추격 중 아키가 먹통이 된 라디오를 두드리는 장면은 1997년이라는 배경을 명확히 보여줍니다.
+                        <div class="bg-rose-600/10 border border-rose-600/30 p-4 mb-4 rounded-lg inline-block">
+                            <span class="text-rose-500 font-bold uppercase text-sm tracking-widest">Scene 01. 시대적 배경</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">통신의 부재: 먹통이 된 라디오</h3>
+                        <p class="text-lg font-light leading-relaxed mb-6 opacity-80">
+                            레제가 추격해올 때 통신 수단인 라디오가 먹통이 되자 아키가 이를 거칠게 치는 장면입니다. 이는 1997년이라는 아날로그 시대상을 극명하게 보여줍니다. 실시간 위치 추적이 불가능한 환경에서 오직 무선 신호에 의존해야 했던 당시의 한계가 공포를 극대화하는 장치로 쓰였습니다.
                         </p>
-                        <span class="text-rose-500 text-sm font-bold tracking-widest">#1997 #ANALOG</span>
                     </div>
                 </div>
 
                 <!-- 장면 2 -->
                 <div class="flex flex-col lg:flex-row-reverse gap-12 items-center">
                     <div class="w-full lg:w-1/2">
-                        <div class="relative overflow-hidden rounded-2xl border border-white/10">
-                            <img src="https://images.unsplash.com/photo-1526749837599-b4efa916aa0e?q=80&w=800&auto=format&fit=crop" class="scene-image" alt="냉전 배경">
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=800&auto=format&fit=crop" class="scene-image" alt="모르모트 레제">
                     </div>
-                    <div class="w-full lg:w-1/2 text-right lg:text-left">
-                        <h3 class="text-2xl font-bold mb-4 text-white">2. 냉전의 잔재: 모르모트 레제</h3>
-                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-4">
-                            키시베가 레제를 구소련의 비밀 요원인 '모르모트'라 지칭하는 장면은 당시의 국제 정세를 반영합니다.
+                    <div class="w-full lg:w-1/2">
+                        <div class="bg-rose-600/10 border border-rose-600/30 p-4 mb-4 rounded-lg inline-block">
+                            <span class="text-rose-500 font-bold uppercase text-sm tracking-widest">Scene 02. 역사적 배경</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 lg:text-left">소련의 잔재: 모르모트 프로젝트</h3>
+                        <p class="text-lg font-light leading-relaxed lg:text-left mb-6 opacity-80">
+                            키시베가 레제를 향해 "구소련의 스파이인 모르모트"라고 언급하는 장면입니다. 구소련 붕괴 이후 잔류한 세력이나 국가적 프로젝트의 산물이 일본 사회에 침투해 있다는 설정은, 냉전 직후의 불안한 국제 정세를 판타지적 설정으로 훌륭하게 녹여낸 사례입니다.
                         </p>
-                        <span class="text-rose-500 text-sm font-bold tracking-widest">#SOVIET #SPY</span>
                     </div>
                 </div>
 
                 <!-- 장면 3 -->
                 <div class="flex flex-col lg:flex-row gap-12 items-center">
                     <div class="w-full lg:w-1/2">
-                        <div class="relative overflow-hidden rounded-2xl border border-white/10">
-                            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop" class="scene-image" alt="도쿄 메트로폴리스">
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop" class="scene-image" alt="도쿄 도시 분석">
                     </div>
                     <div class="w-full lg:w-1/2">
-                        <h3 class="text-2xl font-bold mb-4 text-white">3. 집약적 토지 이용과 메트로폴리스</h3>
-                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-4">
-                            전투 중 드러나는 도쿄의 랜드마크와 고층 빌딩 숲은 도쿄가 고도로 발달한 '세계 도시'임을 증명합니다.
+                        <div class="bg-rose-600/10 border border-rose-600/30 p-4 mb-4 rounded-lg inline-block">
+                            <span class="text-rose-500 font-bold uppercase text-sm tracking-widest">Scene 03. 지리적 배경</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">세계 도시 도쿄: 집약적 토지 이용</h3>
+                        <p class="text-lg font-light leading-relaxed mb-6 opacity-80">
+                            레제와 덴지의 격렬한 전투 중 배경으로 깔리는 도쿄의 각종 랜드마크와 빼곡한 고층 빌딩들은 도쿄가 '세계 도시'임을 증명합니다. 높은 인구 밀도와 지가로 인해 건물을 수직적으로 올리는 <span class="text-rose-400 font-medium">집약적 토지 이용</span> 형태를 잘 보여주며, 도시의 화려한 스카이라인과 그 이면의 비인간적인 콘크리트 숲의 대비를 강조합니다.
                         </p>
-                        <span class="text-rose-500 text-sm font-bold tracking-widest">#TOKYO #CITY</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Characters -->
+        <section id="characters" class="content-section mb-40">
+            <div class="accent-border pl-8 mb-12">
+                <h2 class="section-title text-4xl font-black uppercase tracking-tight">등장인물</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 덴지 -->
+                <div class="glass-card char-card">
+                    <img src="https://i.namu.wiki/i/G38m8D9h3D6_G431Fm96vWj7R5K-qN1J9_W-D8e8Y9-p7p_1f-W-D8e8Y9-p7p_1f.webp" onerror="this.src='https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400&auto=format&fit=crop'" class="char-img" alt="덴지">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">덴지</h3>
+                        <p class="text-sm font-light opacity-70">체인소의 악마와 계약한 주인공. 레제를 만나 처음으로 학교에 다니고 싶다는 평범한 행복에 눈을 뜨게 됩니다.</p>
+                    </div>
+                </div>
+                <!-- 레제 -->
+                <div class="glass-card char-card border-rose-500/50">
+                    <img src="https://i.namu.wiki/i/23D68UmS3wuxbF_IyfRTsLngTTvR_08MLe5AM2pkTBYkz8FJbgNIp9UPU0lF4MNLOHRhypYP9_pm8x3kV-r9BA.webp" class="char-img" alt="레제">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-rose-500 mb-2">레제 (폭탄의 악마)</h3>
+                        <p class="text-sm font-light opacity-70">소련에서 길러진 비밀 병기. 덴지를 유혹하여 체인소의 심장을 노리지만, 그 과정에서 덴지에게 묘한 동질감을 느낍니다.</p>
+                    </div>
+                </div>
+                <!-- 마키마 -->
+                <div class="glass-card char-card">
+                    <img src="https://i.namu.wiki/i/0_4U-v8J3G8_G431Fm96vWj7R5K-qN1J9_W-D8e8Y9-p7p_1f-W-D8e8Y9-p7p_1f.webp" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop'" class="char-img" alt="마키마">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-rose-400 mb-2">마키마</h3>
+                        <p class="text-sm font-light opacity-70">공안 4과의 수수께끼 같은 리더. 모든 상황을 통제하는 압도적인 카리스마를 지닌 인물입니다.</p>
                     </div>
                 </div>
             </div>
@@ -271,13 +462,88 @@
     </main>
 
     <script>
-        function showSection(sectionId) {
+        // Mouse Cursor Trail Implementation
+        const cursor = document.getElementById('cursor');
+        const linksCount = 12;
+        const links = [];
+        let mouseX = 0, mouseY = 0;
+
+        // Initialize chain links
+        for (let i = 0; i < linksCount; i++) {
+            const link = document.createElement('div');
+            link.className = 'chain-link';
+            document.body.appendChild(link);
+            links.push({ el: link, x: 0, y: 0 });
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px)`;
+        });
+
+        function animateChain() {
+            let curX = mouseX;
+            let curY = mouseY;
+
+            links.forEach((link, index) => {
+                link.x += (curX - link.x) * 0.3;
+                link.y += (curY - link.y) * 0.3;
+                link.el.style.transform = `translate(${link.x - 3}px, ${link.y - 3}px)`;
+                curX = link.x;
+                curY = link.y;
+            });
+            requestAnimationFrame(animateChain);
+        }
+        animateChain();
+
+        // Theme Management
+        function toggleTheme() {
+            document.body.classList.toggle('denji-theme');
+            const isDenji = document.body.classList.contains('denji-theme');
+            const logoMain = document.getElementById('logo-main');
+            const heroAccent = document.getElementById('hero-accent');
+
+            if (isDenji) {
+                logoMain.innerText = 'POCHITA';
+                heroAccent.innerText = '덴지 모드';
+            } else {
+                logoMain.innerText = 'CHAINSAW';
+                heroAccent.innerText = '레제편';
+            }
+        }
+
+        // Music Control
+        function toggleMusic() {
+            const audio = document.getElementById('bgm');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+            const visualizer = document.getElementById('visualizer');
+
+            if (audio.paused) {
+                audio.play();
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                visualizer.classList.add('playing');
+            } else {
+                audio.pause();
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                visualizer.classList.remove('playing');
+            }
+        }
+
+        // Section Navigation
+        function showSection(sectionId, element) {
+            document.getElementById('home-video-section').style.display = 'none';
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active-menu'));
+            if (element) element.classList.add('active-menu');
+
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(sec => sec.classList.remove('active'));
             
-            const home = document.getElementById('home');
-            home.style.height = '45vh'; 
-            
+            document.getElementById('home').style.height = '45vh'; 
             const target = document.getElementById(sectionId);
             target.classList.add('active');
             
@@ -285,16 +551,20 @@
                 const yOffset = -120;
                 const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 window.scrollTo({top: y, behavior: 'smooth'});
-            }, 150);
+            }, 100);
         }
 
         function showHome() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active-menu'));
+            document.getElementById('home-video-section').style.display = 'block';
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(sec => sec.classList.remove('active'));
-            const home = document.getElementById('home');
-            home.style.height = '100vh';
+            document.getElementById('home').style.height = '100vh';
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
     </script>
 </body>
 </html>
+</html>
+
